@@ -1,0 +1,21 @@
+{
+  "name": "midterm-individual-67543210019-5",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "start": "node index.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RMUTL-ENGSE207/midterm-2568-67543210019-5.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RMUTL-ENGSE207/midterm-2568-67543210019-5/issues"
+  },
+  "homepage": "https://github.com/RMUTL-ENGSE207/midterm-2568-67543210019-5#readme",
+  "description": ""
+}

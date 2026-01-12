@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ระบบจัดการห้องสมุด</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📚 ระบบจัดการห้องสมุด</h1>
+
+        <!-- สถิติหนังสือ -->
+        <section id="statistics">
+            <h2>สถิติหนังสือ</h2>
+            <p>รวมทั้งหมด: <span id="total">0</span> เล่ม</p>
+            <p>พร้อมให้ยืม: <span id="available">0</span> เล่ม</p>
+            <p>ถูกยืมแล้ว: <span id="borrowed">0</span> เล่ม</p>
+        </section>
+
+        <!-- เพิ่มหนังสือ -->
+        <section id="add-book-section">
+            <h2>เพิ่มหนังสือใหม่</h2>
+            <form id="add-book-form">
+                <input type="text" id="title" placeholder="ชื่อหนังสือ" required>
+                <input type="text" id="author" placeholder="ชื่อผู้แต่ง" required>
+                <input type="text" id="isbn" placeholder="รหัส ISBN" required>
+                <button type="submit">เพิ่มหนังสือ</button>
+            </form>
+            <!-- แสดงหนังสือที่เพิ่ม -->
+            <p id="added-message" style="text-align:center; color:#1b5e20; font-weight:bold;"></p>
+        </section>
+
+        <!-- รายการหนังสือ -->
+        <section id="book-list-section">
+            <h2>รายการหนังสือ</h2>
+            <ul id="book-list"></ul>
+        </section>
+
+    </div>
+
+    <script>
+        const bookList = document.getElementById('book-list');
+        const addBookForm = document.getElementById('add-book-form');
+        const totalSpan = document.getElementById('total');
+        const availableSpan = document.getElementById('available');
+        const borrowedSpan = document.getElementById('borrowed');
+        const addedMessage = document.getElementById('added-message');
+
+        async function fetchBooks() {
+            try {
+                const res = await fetch('/api/books');
+                if (!res.ok) throw new Error("ไม่สามารถดึงข้อมูลหนังสือได้");
+                const books = await res.json();
+                renderBooks(books);
+                updateStats(books);
+            } catch (err) {
+                console.error(err);
+                addedMessage.textContent = "ไม่สามารถเชื่อมต่อฐานข้อมูล ❌";
+            }
+        }
+
+        function renderBooks(books) {
+            bookList.innerHTML = '';
+            books.forEach(book => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${book.title} โดย ${book.author} (ISBN: ${book.isbn})</span>
+                    <div>
+                        <button onclick="toggleBorrowed(${book.id}, ${book.borrowed})">
+                            ${book.borrowed ? 'คืนหนังสือ' : 'ยืมหนังสือ'}
+                        </button>
+                        <button onclick="deleteBook(${book.id})">ลบ</button>
+                    </div>
+                `;
+                bookList.appendChild(li);
+            });
+        }
+
+        function updateStats(books) {
+            totalSpan.textContent = books.length;
+            availableSpan.textContent = books.filter(b => !b.borrowed).length;
+            borrowedSpan.textContent = books.filter(b => b.borrowed).length;
+        }
+
+        addBookForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const book = {
+                title: document.getElementById('title').value,
+                author: document.getElementById('author').value,
+                isbn: document.getElementById('isbn').value,
+            };
+
+            try {
+                const res = await fetch('/api/books', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(book)
+                });
+
+                if (res.ok) {
+                    const addedBook = await res.json();
+                    addedMessage.textContent = `เพิ่มเรียบร้อย: ${addedBook.title} / ${addedBook.author} / ISBN: ${addedBook.isbn}`;
+                    addBookForm.reset();
+                    fetchBooks();
+                } else {
+                    addedMessage.textContent = "เกิดข้อผิดพลาดในการเพิ่มหนังสือ ❌";
+                }
+            } catch (err) {
+                console.error(err);
+                addedMessage.textContent = "ไม่สามารถเชื่อมต่อ backend ❌";
+            }
+        });
+
+        async function deleteBook(id) {
+            try {
+                const res = await fetch(`/api/books/${id}`, { method: 'DELETE' });
+                if (!res.ok) throw new Error("ลบหนังสือไม่สำเร็จ");
+                addedMessage.textContent = "ลบหนังสือเรียบร้อยแล้ว ✅";
+                fetchBooks();
+            } catch (err) {
+                console.error(err);
+                addedMessage.textContent = "เกิดข้อผิดพลาดในการลบหนังสือ ❌";
+            }
+        }
+
+        async function toggleBorrowed(id, borrowed) {
+            try {
+                const res = await fetch(`/api/books/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ borrowed: !borrowed })
+                });
+                if (!res.ok) throw new Error("ไม่สามารถเปลี่ยนสถานะหนังสือได้");
+                addedMessage.textContent = !borrowed ? "ยืมหนังสือเรียบร้อย ✅" : "คืนหนังสือเรียบร้อย ✅";
+                fetchBooks();
+            } catch (err) {
+                console.error(err);
+                addedMessage.textContent = "เกิดข้อผิดพลาดในการเปลี่ยนสถานะหนังสือ ❌";
+            }
+        }
+
+        fetchBooks();
+    </script>
+</body>
+</html>

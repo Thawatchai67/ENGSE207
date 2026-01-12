@@ -1,0 +1,139 @@
+/* BODY */
+body {
+    font-family: 'Poppins', sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #ffe6cc; /* พื้นหลังโทนอุ่น */
+    color: #5a2e0a;
+}
+
+/* HEADINGS */
+h1 {
+    text-align: center;
+    color: #d35400;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #e67e22;
+    margin-top: 30px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+/* FORM */
+form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+form input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #ffdab3;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.15),
+                inset -4px -4px 8px rgba(255,255,255,0.6);
+    transition: 0.3s;
+}
+
+form input:focus {
+    outline: none;
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2),
+                inset -2px -2px 4px rgba(255,255,255,0.7);
+}
+
+/* BUTTONS */
+form button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #e67e22;
+    color: white;
+    font-weight: bold;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.2),
+                -4px -4px 10px rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 14px rgba(0,0,0,0.25),
+                -6px -6px 14px rgba(255,255,255,0.35);
+    background: #d35400;
+}
+
+/* BOOK LIST */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 16px;
+    background: #ffcc99;
+    box-shadow: 8px 8px 16px rgba(0,0,0,0.25),
+                -8px -8px 16px rgba(255,255,255,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+li:hover {
+    transform: translateY(-4px);
+    box-shadow: 12px 12px 20px rgba(0,0,0,0.3),
+                -12px -12px 20px rgba(255,255,255,0.35);
+}
+
+/* ACTION BUTTONS */
+button.action-btn {
+    margin-left: 5px;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button.edit {
+    background-color: #f39c12;
+    color: white;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.2),
+                -3px -3px 6px rgba(255,255,255,0.3);
+}
+
+button.edit:hover {
+    transform: translateY(-2px);
+    background-color: #e67e22;
+}
+
+button.delete {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.2),
+                -3px -3px 6px rgba(255,255,255,0.3);
+}
+
+button.delete:hover {
+    transform: translateY(-2px);
+    background-color: #c0392b;
+}
+
+/* STATISTICS */
+#statistics p span {
+    font-weight: bold;
+    color: #d35400;
+    font-size: 1.1em;
+}
