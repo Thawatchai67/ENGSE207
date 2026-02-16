@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Task Board</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>📋 Task Board</h1>
+      <p class="subtitle">N-Tier Architecture on Railway Cloud</p>
+    </header>
+
+    <div class="add-task">
+      <input id="title" placeholder="New task..." />
+      <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <div class="board">
+      <div class="column">
+        <h2>TODO</h2>
+        <div id="todo" class="task-list"></div>
+      </div>
+
+      <div class="column">
+        <h2>IN PROGRESS</h2>
+        <div id="in-progress" class="task-list"></div>
+      </div>
+
+      <div class="column">
+        <h2>DONE</h2>
+        <div id="done" class="task-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- firefly -->
+  <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+  <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+  <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+  <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+  <div class="firefly"></div><div class="firefly"></div><div class="firefly"></div>
+
+  <script src="/config.js"></script>
+  <script src="/js/app.js"></script>
+</body>

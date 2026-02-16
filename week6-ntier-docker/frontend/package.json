@@ -1,0 +1,15 @@
+{
+  "name": "taskboard-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "sass": "sass css/style.scss css/style.css --watch",
+    "start": "npx serve -s . -l $PORT"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0"
+  }
+}
