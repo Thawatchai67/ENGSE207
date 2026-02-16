@@ -1,0 +1,8 @@
+{
+  "[sql]": {
+    "editor.defaultFormatter": "ms-mssql.mssql",
+    "editor.formatOnSave": false
+  },
+  "sql.linter": "tsql",
+  "sql.dialect": "sqlite"
+}
